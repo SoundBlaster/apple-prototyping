@@ -1,3 +1,5 @@
+![Schematic device-layout workbench with a phone, tablet, safe-area guides and a foldable tabletop preview](docs/images/device-workbench-hero.png)
+
 # Apple prototyping
 
 A reusable Codex skill and dependency-free HTML device-layout kit for iPhone,
