@@ -1,0 +1,13 @@
+.apple-space{position:relative;flex:none}
+.apple-frame{position:absolute;left:0;top:0;padding:var(--device-bezel,10px);background:var(--device-frame-color,#24363c);border-radius:32px;box-shadow:0 20px 38px #122e3528;transform-origin:top left;box-sizing:content-box}
+.apple-screen{position:relative;overflow:hidden;border-radius:23px;container:device / size;box-sizing:border-box;--native-top:0px;--native-right:0px;--native-bottom:0px;--native-left:0px;--fold:18px;--half-division:9px}
+.apple-overlays{position:absolute;inset:0;pointer-events:none;z-index:90}
+.apple-safe-guide{display:none;position:absolute;inset:var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);border:2px solid #29be8b}
+.apple-screen[data-guides=true][data-native=true] .apple-safe-guide{display:block}
+.apple-division{position:absolute;background:linear-gradient(90deg,transparent,#18293830,transparent)}
+.apple-screen[data-pose=tabletop] .apple-division{background:linear-gradient(transparent,#18293870,transparent)}
+.apple-occlusion{position:absolute;display:none;border-radius:6px}
+.apple-screen[data-guides=true] .apple-occlusion{display:block;outline:1px dashed #f19435;background:#f1943515}
+.apple-screen .apple-occlusion[data-active=true]{display:block;background:#15252a}
+.apple-screen .apple-occlusion[data-active=true][data-camera=true]{border-radius:50%}
+.apple-home-indicator{position:absolute;bottom:8px;left:calc(50% - 60px);width:120px;height:5px;border-radius:4px;background:#16302d99}
