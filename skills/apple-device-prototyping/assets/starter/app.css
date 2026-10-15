@@ -6,3 +6,8 @@
 
 .sample-app[data-layout=tabletop] .orb{width:38%;right:5%;bottom:16%}
 .sample-app[data-layout=tabletop] .canvas>.eyebrow{position:relative;z-index:2}
+/* Sample app policy: imported flat views keep meaningful content inside safe insets. */
+.sample-app[data-imported=true][data-layout=overlay]{grid-template-rows:1fr calc(90px + var(--safe-bottom))}
+.sample-app[data-imported=true][data-layout=overlay] .canvas{padding-top:max(7%,calc(var(--safe-top) + 12px));padding-right:max(7%,calc(var(--safe-right) + 12px));padding-left:max(7%,calc(var(--safe-left) + 12px))}
+.sample-app[data-imported=true][data-layout=overlay] .sample-controls{padding-bottom:calc(16px + var(--safe-bottom));padding-right:calc(16px + var(--safe-right));padding-left:calc(16px + var(--safe-left))}
+#importStatus{font-size:12px;overflow-wrap:anywhere}

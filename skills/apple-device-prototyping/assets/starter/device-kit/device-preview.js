@@ -1,6 +1,7 @@
 import {geometry,fitScale} from './geometry.js';
 export {presets,preset} from './presets.js';
 export {geometry,rotate,normalize} from './geometry.js';
+export {parseCapture,captureState} from './capture.js';
 
 // This owner never reparents or replaces application content.
 export class DevicePreview {
@@ -34,7 +35,8 @@ export class DevicePreview {
       const n=add('apple-occlusion',r.frame);n.dataset.active=String(r.active);
       n.dataset.camera=String(r.frame.width===37&&r.frame.height===37);
     }
-    if(g.exact)add('apple-home-indicator');
+    // Captures describe a view, which need not contain the system home indicator.
+    if(g.exact&&!state.capture)add('apple-home-indicator');
     this.fit();
     screen.dispatchEvent(new CustomEvent('devicechange',{detail:structuredClone(g)}));
     return g;

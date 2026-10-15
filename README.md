@@ -93,6 +93,13 @@ existing HTML prototypes can also use just the device kit.
 
 ## Dimensions you can trace
 
+Have a device or window configuration missing from the catalog? Run the
+[native Geometry Scanner](native/GeometryScanner/README.md) on an iPhone, iPad or
+Simulator. It records the owning view's dimensions, safe area and configuration,
+then exports JSON with a companion screenshot. Import that JSON in the playground
+to review your prototype using the captured geometry. Separate observations keep
+portrait, landscape and system-panel configurations distinct.
+
 The playground keeps logical dimensions separate from preview scaling and labels
 the source of its geometry. **Duo presets replay exact recorded bounds, safe-area
 insets and regions from an iOS 27.1 Simulator capture.** Those measurements belong
