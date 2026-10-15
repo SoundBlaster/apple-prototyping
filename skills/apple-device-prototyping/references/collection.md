@@ -32,6 +32,11 @@ capture IDs or corrupt existing objects abort the update. A later collection can
 attach a previously missing screenshot. Device-copy failure leaves the catalog
 unchanged. The CLI requires exactly one input source and an explicit output.
 
+PNG validation checks every chunk's boundary/CRC, the terminal IEND, the compressed
+image stream, scanline size and filter bytes. Supported screenshots are static,
+noninterlaced RGB/RGBA at 8 or 16 bits (the UIKit exports verified here); other
+encodings are rejected explicitly. Limits are 25 MiB encoded and 128 MiB decoded.
+
 ## Storage contract
 
 `catalog.json` has `schemaVersion: 1` and a `profiles` array. Each profile contains:

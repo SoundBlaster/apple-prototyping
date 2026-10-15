@@ -57,3 +57,15 @@ test('device collection uses an explicit target and CoreDevice arguments; stagin
   await assert.rejects(readFile(join(staging,'geometry-one.json')),/ENOENT/);
   await assert.rejects(collectDevice({device:'',output:s.output,run}),/explicit device/);
 });
+test('a later screenshot attaches once; a truncated replacement leaves the catalog unchanged',async t=>{
+  const s=await setup(t),capture=fixture();
+  for(const key of ['viewBounds','windowBounds','screenBounds','viewFrameInWindow','nativeBounds','safeAreaFrame','readableContentFrame'])capture[key]={x:0,y:0,width:1,height:1};
+  await s.save('one',capture);await collectDirectory(s);
+  const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==','base64');
+  await writeFile(join(s.input,'one.png'),png);
+  assert.equal((await collectDirectory(s)).attachedScreenshots,1);
+  const before=await s.manifest();
+  assert.equal((await collectDirectory(s)).attachedScreenshots,0);assert.equal(await s.manifest(),before);
+  await writeFile(join(s.input,'one.png'),png.subarray(0,24));
+  await assert.rejects(collectDirectory(s),/Invalid PNG/);assert.equal(await s.manifest(),before);
+});

@@ -8,6 +8,7 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {parseCapture} from '../assets/starter/device-kit/capture.js';
 import {parseCatalog,validateCatalog} from '../assets/starter/device-kit/catalog.js';
+import {validatePNG as verifyPNG} from './png.mjs';
 
 const execute=promisify(execFile);
 const hash=data=>createHash('sha256').update(data).digest('hex');
@@ -24,10 +25,6 @@ async function boundedRead(path,limit) {
   const file=await open(path,'r');
   try{if((await file.stat()).size>limit)throw Error('File too large: '+path);return await file.readFile();}
   finally{await file.close();}
-}
-function verifyPNG(data,capture) {
-  if(data.length<24||data.length>25*1024*1024||data.subarray(0,8).toString('hex')!=='89504e470d0a1a0a'||data.toString('ascii',12,16)!=='IHDR')throw Error('Invalid PNG');
-  if(Math.abs(data.readUInt32BE(16)-capture.viewBounds.width*capture.scale)>1||Math.abs(data.readUInt32BE(20)-capture.viewBounds.height*capture.scale)>1)throw Error('PNG dimensions disagree with capture');
 }
 
 export async function collectDirectory({input,output}) {
