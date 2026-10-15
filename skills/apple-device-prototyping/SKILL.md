@@ -19,6 +19,11 @@ Replace the sample application in `index.html`, `app.css`, and `app.js`; keep
 and connect its elements through `DevicePreview` as described in
 [the integration reference](references/integration.md).
 
+For geometry exported from the native scanner, read [the capture contract](references/captures.md).
+Use the starter's **Import scanner JSON** control or `parseCapture`/`captureState`
+to replay it. Keep the owning-view/chrome context and declared source visible.
+Capture each orientation separately; resizing a capture does not measure a new device.
+
 ## Present in Codex and invite annotations
 
 When working in Codex desktop, open the running prototype in its built-in browser
@@ -67,7 +72,7 @@ and do not require annotations or approval to finish already authorized work.
 
 ## Verify the result
 
-Run `node --test scripts/geometry.test.mjs` from this skill directory when changing
+Run `node --test scripts/*.test.mjs` from this skill directory when changing
 the bundled kit (`npm test` from the repository root). The reusable Playwright
 check is `scripts/browser-smoke.mjs`: import `runBrowserSmoke(page, baseURL)`
 with the starter served. For a generated prototype,

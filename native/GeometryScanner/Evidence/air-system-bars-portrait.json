@@ -1,0 +1,91 @@
+{
+  "capturedAt" : "2026-10-15T21:00:19Z",
+  "configuration" : {
+    "homeIndicatorAutoHidden" : false,
+    "mode" : "system-bars",
+    "navigationBarVisible" : true,
+    "orientation" : "portrait",
+    "statusBarHidden" : false,
+    "tabBarVisible" : false,
+    "target" : "scanner.rootView",
+    "toolbarVisible" : true
+  },
+  "coordinateSpace" : "view-local",
+  "id" : "A56231C6-226A-4794-9B1B-AE4AACD7FE7F",
+  "layoutMargins" : {
+    "bottom" : 86,
+    "left" : 20,
+    "right" : 20,
+    "top" : 122
+  },
+  "nativeBounds" : {
+    "height" : 2736,
+    "width" : 1260,
+    "x" : 0,
+    "y" : 0
+  },
+  "nativeScale" : 3,
+  "readableContentFrame" : {
+    "height" : 704,
+    "width" : 380,
+    "x" : 20,
+    "y" : 122
+  },
+  "regionsIncludingInactive" : [
+
+  ],
+  "regionsSupported" : false,
+  "safeAreaFrame" : {
+    "height" : 704,
+    "width" : 420,
+    "x" : 0,
+    "y" : 122
+  },
+  "safeAreaInsets" : {
+    "bottom" : 86,
+    "left" : 0,
+    "right" : 0,
+    "top" : 122
+  },
+  "scale" : 3,
+  "schemaVersion" : 1,
+  "screenBounds" : {
+    "height" : 912,
+    "width" : 420,
+    "x" : 0,
+    "y" : 0
+  },
+  "source" : {
+    "kind" : "device",
+    "model" : "iPhone18,4",
+    "osBuild" : "24A435",
+    "osVersion" : "27.0.0",
+    "scannerVersion" : "0.1.0"
+  },
+  "traits" : {
+    "contentSizeCategory" : "UICTContentSizeCategoryS",
+    "horizontalSizeClass" : "compact",
+    "layoutDirection" : "ltr",
+    "userInterfaceStyle" : "dark",
+    "verticalSizeClass" : "regular"
+  },
+  "units" : "pt",
+  "viewBounds" : {
+    "height" : 912,
+    "width" : 420,
+    "x" : 0,
+    "y" : 0
+  },
+  "viewFrameInWindow" : {
+    "height" : 912,
+    "width" : 420,
+    "x" : 0,
+    "y" : 0
+  },
+  "windowBounds" : {
+    "height" : 912,
+    "width" : 420,
+    "x" : 0,
+    "y" : 0
+  }
+}
