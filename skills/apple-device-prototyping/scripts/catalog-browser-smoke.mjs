@@ -1,0 +1,42 @@
+// Serve a prototype with a collected catalog; no browser dependency is bundled.
+export async function runCatalogBrowserSmoke(page,baseURL='http://127.0.0.1:8766/') {
+  await page.goto(baseURL);
+  await page.evaluate(()=>{for(const k of Object.keys(localStorage))if(k.startsWith('apple-geometry:'+location.pathname))localStorage.removeItem(k);});
+  await page.reload();
+  await page.waitForFunction(()=>document.querySelector('#catalogProfile').options.length>0);
+  const count=await page.locator('#catalogProfile option').count();
+  await page.selectOption('#catalogOrientation','landscape');
+  await page.selectOption('#catalogMode','fullscreen');
+  if(await page.locator('#useCatalog').isDisabled())throw Error('Missing fullscreen landscape sample');
+  await page.locator('#count').click();await page.locator('#useCatalog').click();
+  const selected=await page.locator('#preset').inputValue();
+  if(!selected.startsWith('catalog-'))throw Error('Catalog did not activate');
+  const geometry=await page.locator('#screen').getAttribute('data-geometry-evidence');
+  const json=await page.locator('#captureJSON').getAttribute('href');
+  const png=await page.locator('#capturePNG').getAttribute('href');
+  if(!(await page.request.get(json)).ok()||!(await page.request.get(png)).ok())throw Error('Evidence links unavailable');
+  if(await page.locator('#countValue').textContent()!=='1')throw Error('Selection lost application state');
+  await page.reload();await page.waitForFunction(id=>document.querySelector('#preset').value===id,selected);
+  if(await page.locator('#screen').getAttribute('data-native')!=='true')throw Error('Measured selection not restored');
+  await page.locator('#rotate').click();
+  if(await page.locator('#screen').getAttribute('data-native')!=='false'||await page.locator('#captureEvidence').isVisible())throw Error('Rotation kept measurement/evidence');
+  await page.selectOption('#preset',selected);
+  const invalid=route=>route.fulfill({status:200,contentType:'application/json',body:'{"schemaVersion":999}'});
+  await page.route('**/captures/catalog.json',invalid);await page.locator('#refreshCatalog').click();
+  await page.waitForFunction(()=>document.querySelector('#catalogStatus').textContent.includes('Invalid capture catalog'));
+  if(await page.locator('#preset').inputValue()!==selected)throw Error('Invalid catalog destroyed selection');
+  await page.unroute('**/captures/catalog.json',invalid);
+  await page.locator('#refreshCatalog').click();await page.waitForFunction(()=>!document.querySelector('#refreshCatalog').disabled);
+  const capture=await (await page.request.get(json)).json();
+  await page.locator('#captureFile').setInputFiles({name:'manual.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(capture))});
+  await page.waitForFunction(()=>document.querySelector('#preset').value.startsWith('capture-'));
+  const manual=await page.locator('#preset').inputValue();
+  await page.reload();await page.waitForFunction(id=>document.querySelector('#preset').value===id,manual);
+  const delay=async route=>{await new Promise(r=>setTimeout(r,700));await route.continue();};
+  await page.route('**/captures/catalog.json',delay);
+  await page.goto(baseURL,{waitUntil:'domcontentloaded'});await page.selectOption('#preset','phone');
+  await page.waitForFunction(()=>!document.querySelector('#refreshCatalog').disabled);
+  if(await page.locator('#preset').inputValue()!=='phone')throw Error('Late catalog overrode user choice');
+  await page.unroute('**/captures/catalog.json',delay);
+  return {profiles:count,geometry,evidenceLinks:true,reloadRestores:true,manualImportPersists:true,invalidCatalogPreservesState:true,lateResponsePreservesChoice:true};
+}

@@ -1,6 +1,6 @@
 ---
 name: apple-device-prototyping
-description: Build reusable HTML/CSS layout prototypes inside iPhone, iPad and foldable-device fixtures, with preview scaling, safe-area guides and recorded Duo geometry. Use for browser design studies, not native iOS builds or device conformance claims.
+description: Build HTML/CSS device playgrounds for iPhone, iPad and foldable layouts; collect scanner exports and replay measured bounds and safe areas before native implementation. Use for browser prototypes and geometry catalogs, not native conformance claims.
 ---
 
 # Apple device prototyping
@@ -25,6 +25,32 @@ to replay it. Keep the owning-view/chrome context and declared source visible.
 Capture each orientation separately; resizing a capture does not measure a new device.
 To retrieve exports from a paired device or organize an export folder, use
 `scripts/collect.mjs` as described in [collection](references/collection.md).
+
+## Measure, collect, compare
+
+Use this path when recorded geometry is needed for the user's target device:
+
+1. Check whether an existing catalog already covers the required model, OS,
+   orientation, owning view and chrome. Keep unmeasured configurations labeled
+   as fixtures; do not infer a rotated safe area from a portrait observation.
+2. If new native measurements are authorized, use Geometry Scanner and export
+   the needed configurations. Identify the intended physical device or Simulator
+   explicitly. A requested real-device result cannot be replaced by a Simulator.
+3. Run `collect` into the prototype's `captures` directory, then **Refresh catalog**.
+   Confirm the reported new profiles/observations and inspect the matching JSON
+   and screenshot. The command only reads exports; it does not rotate or export.
+4. Filter **Measured catalog** by device/OS, orientation and mode, then **Use
+   measurement**. Check the prototype's content against those bounds and safe
+   areas. Inspect **Measurement evidence** for source, timestamp, target view and
+   screenshot. Use browser screenshots and DOM bounds to check overlap.
+5. Present the result in Codex's browser using the annotation workflow below.
+   State which native configurations were measured and which remain unverified.
+
+Collected profiles persist in files alongside the prototype. Selection and
+manual JSON imports are restored from browser storage for that origin/path;
+storage failure leaves manual imports session-only. The file catalog is the
+portable source for review and sharing. Creating a new prototype does not copy
+the starter checkout's local device exports into it.
 
 ## Present in Codex and invite annotations
 
@@ -77,7 +103,11 @@ and do not require annotations or approval to finish already authorized work.
 Run `node --test scripts/*.test.mjs` from this skill directory when changing
 the bundled kit (`npm test` from the repository root). The reusable Playwright
 check is `scripts/browser-smoke.mjs`: import `runBrowserSmoke(page, baseURL)`
-with the starter served. For a generated prototype,
+with the starter served. For catalog work, run `runCatalogBrowserSmoke` from
+`scripts/catalog-browser-smoke.mjs` against a served catalog containing a
+full-screen landscape profile with a PNG. It exercises evidence links, filters,
+reload, manual import persistence and invalid/late catalog responses.
+For a generated prototype,
 serve it and inspect representative phone/iPad, inner/outer portrait/landscape,
 vertical-fold and tabletop states relevant to the request. Inspect actual
 screenshots and DOM bounds: controls stay reachable, layout uses device dimensions,

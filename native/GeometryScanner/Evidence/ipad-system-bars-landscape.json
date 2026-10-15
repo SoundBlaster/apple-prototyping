@@ -1,0 +1,91 @@
+{
+  "capturedAt" : "2026-10-15T21:39:49Z",
+  "configuration" : {
+    "homeIndicatorAutoHidden" : false,
+    "mode" : "system-bars",
+    "navigationBarVisible" : true,
+    "orientation" : "landscapeRight",
+    "statusBarHidden" : false,
+    "tabBarVisible" : false,
+    "target" : "scanner.rootView",
+    "toolbarVisible" : true
+  },
+  "coordinateSpace" : "view-local",
+  "id" : "C573A75B-5576-4F8E-813C-125EA624CFE3",
+  "layoutMargins" : {
+    "bottom" : 74,
+    "left" : 20,
+    "right" : 20,
+    "top" : 86
+  },
+  "nativeBounds" : {
+    "height" : 2420,
+    "width" : 1668,
+    "x" : 0,
+    "y" : 0
+  },
+  "nativeScale" : 2,
+  "readableContentFrame" : {
+    "height" : 674,
+    "width" : 896,
+    "x" : 157,
+    "y" : 86
+  },
+  "regionsIncludingInactive" : [
+
+  ],
+  "regionsSupported" : false,
+  "safeAreaFrame" : {
+    "height" : 674,
+    "width" : 1210,
+    "x" : 0,
+    "y" : 86
+  },
+  "safeAreaInsets" : {
+    "bottom" : 74,
+    "left" : 0,
+    "right" : 0,
+    "top" : 86
+  },
+  "scale" : 2,
+  "schemaVersion" : 1,
+  "screenBounds" : {
+    "height" : 834,
+    "width" : 1210,
+    "x" : 0,
+    "y" : 0
+  },
+  "source" : {
+    "kind" : "simulator",
+    "model" : "iPad17,2",
+    "osBuild" : "24A434",
+    "osVersion" : "27.0.0",
+    "scannerVersion" : "0.1.0"
+  },
+  "traits" : {
+    "contentSizeCategory" : "UICTContentSizeCategoryL",
+    "horizontalSizeClass" : "regular",
+    "layoutDirection" : "ltr",
+    "userInterfaceStyle" : "light",
+    "verticalSizeClass" : "regular"
+  },
+  "units" : "pt",
+  "viewBounds" : {
+    "height" : 834,
+    "width" : 1210,
+    "x" : 0,
+    "y" : 0
+  },
+  "viewFrameInWindow" : {
+    "height" : 834,
+    "width" : 1210,
+    "x" : 0,
+    "y" : 0
+  },
+  "windowBounds" : {
+    "height" : 834,
+    "width" : 1210,
+    "x" : 0,
+    "y" : 0
+  }
+}

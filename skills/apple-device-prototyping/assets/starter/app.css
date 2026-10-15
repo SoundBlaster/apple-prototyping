@@ -11,9 +11,10 @@
 .sample-app[data-imported=true][data-layout=overlay] .canvas{padding-top:max(7%,calc(var(--safe-top) + 12px));padding-right:max(7%,calc(var(--safe-right) + 12px));padding-left:max(7%,calc(var(--safe-left) + 12px))}
 .sample-app[data-imported=true][data-layout=overlay] .sample-controls{padding-bottom:calc(16px + var(--safe-bottom));padding-right:calc(16px + var(--safe-right));padding-left:calc(16px + var(--safe-left))}
 #importStatus{font-size:12px;overflow-wrap:anywhere}
-/* A short measured viewport leaves less room once native bars are accounted for. */
+.catalog-panel{border:1px solid #c6d1cd;border-radius:12px;padding:12px;margin:0 0 20px;min-width:0}.catalog-panel legend{font-size:13px;font-weight:600}.catalog-panel label{font-size:12px;margin-bottom:10px}.catalog-panel select{font-size:12px;min-width:0}.catalog-panel button{margin-bottom:8px;padding:7px;font-size:13px}.catalog-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:0}#catalogStatus{font-size:12px;margin:4px 0;overflow-wrap:anywhere}button:disabled{cursor:default;opacity:.5}#captureEvidence{border:1px solid #c6d1cd;border-radius:12px;padding:14px;font-size:13px}#captureContext{overflow-wrap:anywhere}#captureThumbnail{display:block;max-width:100%;max-height:320px;object-fit:contain;margin-top:12px}#captureThumbnail[hidden]{display:none}@media(max-width:760px){.catalog-panel{grid-column:1/-1}}
+/* Short viewports need compact sample content, with or without measured bars. */
 @container device (max-height:500px) and (min-aspect-ratio:1){
-  .sample-app[data-imported=true][data-layout=overlay] .canvas h2{font-size:32px;letter-spacing:-1px;margin:8px 0;max-width:55%}
-  .sample-app[data-imported=true][data-layout=overlay] .caption{position:relative;left:auto;bottom:auto;max-width:55%;font-size:14px;margin:8px 0 0}
-  .sample-app[data-imported=true][data-layout=overlay] .orb{width:min(26%,140px);right:calc(var(--safe-right) + 24px);bottom:16px}
+  .sample-app[data-layout=overlay] .canvas h2{font-size:32px;letter-spacing:-1px;margin:8px 0;max-width:55%}
+  .sample-app[data-layout=overlay] .caption{position:relative;left:auto;bottom:auto;max-width:55%;font-size:14px;margin:8px 0 0}
+  .sample-app[data-layout=overlay] .orb{width:min(26%,140px);right:calc(var(--safe-right) + 24px);bottom:16px}
 }

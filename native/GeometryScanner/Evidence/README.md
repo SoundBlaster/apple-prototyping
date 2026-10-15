@@ -94,5 +94,27 @@ after user interaction; the agent did not automate or observe the swipe itself.
 
 ![Air full-screen landscape report scrolled](air-fullscreen-landscape.png)
 
-iPad window resizing remains unverified. Build success alone is not
-physical-device evidence.
+## iPad Simulator and window-resizing boundary
+
+The scanner was run on iPad Pro 11-inch (M5), model iPad17,2, iPadOS 27.0 build
+24A434, scale 2. These are Simulator observations, not physical iPad measurements.
+The installed 27.1 runtime supports Duo only; the installed 27.0 runtime was used
+for iPad. The reserved-regions API correctly reports unavailable.
+
+| Capture | View/window, pt | Safe top / right / bottom / left |
+| --- | --- | --- |
+| [Full screen, portrait](ipad-fullscreen-portrait.json) | 834 × 1210 | 32 / 0 / 20 / 0 |
+| [Full screen, landscapeRight](ipad-fullscreen-landscape.json) | 1210 × 834 | 32 / 0 / 20 / 0 |
+| [System bars, landscapeRight](ipad-system-bars-landscape.json) | 1210 × 834 | 86 / 0 / 74 / 0 |
+
+Matching screenshots: [portrait](ipad-fullscreen-portrait.png),
+[landscape](ipad-fullscreen-landscape.png),
+[landscape with bars](ipad-system-bars-landscape.png).
+Controls/report were readable and export worked. The three pairs were collected
+into the same catalog as Air, preserving distinct Simulator provenance.
+
+Window resizing remains unverified: CoreDevice `appResize` returned error 1001
+(Resizable App Management unsupported), Device Hub's resize mode was disabled,
+and two corner drags left the owning-view dimensions unchanged. No narrow-window
+measurement was invented. A runtime/device supporting window resizing is needed
+to finish that check. Build success alone is not physical-device evidence.
