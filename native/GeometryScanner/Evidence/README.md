@@ -53,6 +53,7 @@ are outside that view's hierarchy and are not drawn in the exported image.
 | [Full screen](air-fullscreen-portrait.json) | 420 × 912 | 68 / 0 / 34 / 0 |
 | [System bars](air-system-bars-portrait.json) | 420 × 912 | 122 / 0 / 86 / 0 |
 | [System bars, landscapeRight](air-system-bars-landscape.json) | 912 × 420 | 78 / 68 / 78 / 68 |
+| [Full screen, landscapeRight](air-fullscreen-landscape.json) | 912 × 420 | 0 / 68 / 20 / 68 |
 
 All exports have scale 3 and native bounds 1260 × 2736. On this OS version,
 `regionsSupported:false` correctly reports that the reserved-regions API is
@@ -79,7 +80,19 @@ exports passed those checks after the fix, and the 13-preset smoke still passed.
 Live device inspection confirmed readable portrait controls and report with no
 overlap. The landscape export confirms the compact layout and geometry after a
 physical rotation; remote rotation commands did not change the phone's pose.
-Landscape report scrolling and full-screen landscape remain unverified.
+Two more exports were copied directly from the app's Documents using CoreDevice:
+system-bars at 21:14:26Z and full-screen at 21:14:37Z. Both passed the same browser
+import and layout checks. The full-screen capture completes the portrait and
+landscape matrix for both scanner modes on this Air.
+
+The [later system-bars export](air-system-bars-landscape-scrolled.json) and both
+screenshots below show the report at its lower content, unlike the earlier
+landscape screenshot. This is evidence that lower report content is reachable
+after user interaction; the agent did not automate or observe the swipe itself.
+
+![Air system-bars report scrolled](air-system-bars-landscape-scrolled.png)
+
+![Air full-screen landscape report scrolled](air-fullscreen-landscape.png)
 
 iPad window resizing remains unverified. Build success alone is not
 physical-device evidence.
