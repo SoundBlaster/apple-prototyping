@@ -22,6 +22,17 @@ export async function runCaptureBrowserSmoke(page,capture,baseURL='http://127.0.
   if(measured.evidence!==capture.source.kind+'-measured'||measured.guides==='none'||measured.count!=='1')
     throw Error('Import lost provenance, guides or application state');
   if(!measured.note.includes(capture.configuration.target))throw Error('Owning-view context hidden');
+  const layout=await page.evaluate(()=>{
+    const bounds=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right};};
+    return {title:bounds('.canvas h2'),caption:bounds('.caption'),button:bounds('#count'),safe:bounds('.apple-safe-guide')};
+  });
+  for(const name of ['title','caption','button']) {
+    const r=layout[name],s=layout.safe;
+    if(r.top<s.top-1||r.bottom>s.bottom+1||r.left<s.left-1||r.right>s.right+1)
+      throw Error(name+' leaves the imported safe area');
+  }
+  if(layout.title.bottom>layout.caption.top||layout.caption.bottom>layout.button.top)
+    throw Error('Imported sample content overlaps');
   await page.locator('#rotate').click();
   if(await page.locator('#screen').getAttribute('data-native')!=='false')throw Error('Rotation kept stale measured geometry');
   await page.selectOption('#preset',id);
@@ -31,5 +42,5 @@ export async function runCaptureBrowserSmoke(page,capture,baseURL='http://127.0.
   });
   await page.waitForFunction(()=>document.querySelector('#importStatus').textContent.includes('unsupported schemaVersion'));
   if(await page.locator('#preset').inputValue()!==id)throw Error('Invalid import changed active profile');
-  return {measured,rotationInvalidates:true,selectionRestores:true,invalidImportPreservesState:true};
+  return {measured,sampleContentFits:true,rotationInvalidates:true,selectionRestores:true,invalidImportPreservesState:true};
 }

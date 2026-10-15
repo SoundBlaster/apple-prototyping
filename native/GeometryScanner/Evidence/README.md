@@ -1,5 +1,7 @@
 # Scanner → browser verification, 2026-10-15
 
+## Duo Simulator
+
 These are actual app-export pairs from the iPhone Duo Simulator, iOS 27.1.0
 (24A94401), model identifier iPhone19,4. They are observations of
 `scanner.rootView`, not physical-device measurements.
@@ -35,5 +37,49 @@ timestamps, traits, source and all region records are inside each JSON.
 
 The screenshot pairs predate the small compact-height layout adjustment; their
 inner landscape presentation and captured geometry are unchanged by it.
-Physical-device execution, iPad window resizing and pre-27.1 runtime behavior
-have not been verified. Build success alone is not physical-device evidence.
+
+## Physical iPhone Air
+
+The signed scanner was installed and launched on the physical iPhone Air
+(iPhone18,4), iOS 27.0.0 (24A435). These matching JSON/PNG pairs were exported by
+the user from that app; the portrait pairs were also retrieved from its device
+container. They measure `scanner.rootView` with home-indicator auto-hide disabled.
+The portrait captures have a visible status bar; the landscape capture reports
+it hidden. The PNG captures the measured view; system bars themselves
+are outside that view's hierarchy and are not drawn in the exported image.
+
+| Capture | Bounds, pt | Safe top / right / bottom / left |
+| --- | --- | --- |
+| [Full screen](air-fullscreen-portrait.json) | 420 × 912 | 68 / 0 / 34 / 0 |
+| [System bars](air-system-bars-portrait.json) | 420 × 912 | 122 / 0 / 86 / 0 |
+| [System bars, landscapeRight](air-system-bars-landscape.json) | 912 × 420 | 78 / 68 / 78 / 68 |
+
+All exports have scale 3 and native bounds 1260 × 2736. On this OS version,
+`regionsSupported:false` correctly reports that the reserved-regions API is
+unavailable. It does not claim that the device has no occluded areas.
+
+![Air full-screen scanner](air-fullscreen-portrait.png)
+
+![Air scanner with system bars](air-system-bars-portrait.png)
+
+![Air scanner in landscape with system bars](air-system-bars-landscape.png)
+
+All four user-supplied JSON exports (including a repeated system-bars sample)
+passed the browser import smoke: dimensions and safe-area insets matched, the
+source was `device-measured`, application state survived import, rotation cleared
+measured status, reselecting restored it, and invalid schema input preserved the
+active profile. Three distinct configurations are retained here.
+
+The Air landscape capture exposed overlapping sample-app text in the browser.
+A compact-height container query now reduces the heading and illustration and
+puts the caption in normal flow. The import smoke checks title/caption/button
+rectangles against the measured safe area and against each other. All four Air
+exports passed those checks after the fix, and the 13-preset smoke still passed.
+
+Live device inspection confirmed readable portrait controls and report with no
+overlap. The landscape export confirms the compact layout and geometry after a
+physical rotation; remote rotation commands did not change the phone's pose.
+Landscape report scrolling and full-screen landscape remain unverified.
+
+iPad window resizing remains unverified. Build success alone is not
+physical-device evidence.
