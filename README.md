@@ -36,9 +36,11 @@ content instead of accidentally designing for the desktop browser around it.
 2. **Build and inspect in the playground.** The agent creates an HTML/CSS
    prototype, switches devices and orientations, and checks screenshots and
    element bounds for clipping, overlap and unreachable controls.
-3. **Review it in the browser.** Walk the client through the prototype, try
-   alternative layouts and agree on how the screen should adapt. The prototype
-   is a static site you can serve locally or publish to your own hosting.
+3. **Review and annotate in Codex.** The agent opens the running prototype in
+   Codex's built-in browser and invites you to annotate anything that looks off.
+   Point to the element and describe the change; the agent uses that feedback to
+   revise the layout and show the updated result. You can also walk a client
+   through the static site locally or publish it to your own hosting.
 4. **Carry the decisions into SwiftUI or UIKit.** Use the reviewed composition,
    control placement and adaptation rules as implementation inputs, then verify
    the native result in Simulator and on devices.
@@ -51,6 +53,7 @@ implement it in SwiftUI. Include a title, illustration, text, page navigation
 and audio controls. Explore phone portrait and landscape, iPad, and Duo
 including tabletop. Keep reading progress when switching modes. Check for
 clipping and control overlap, then prepare a browser walkthrough for the client.
+Open it in Codex's built-in browser so I can annotate visual changes.
 Identify which geometry is measured and which is a layout fixture.
 ```
 
