@@ -1,4 +1,4 @@
-![Schematic device-layout workbench with a phone, tablet, safe-area guides and a foldable tabletop preview](docs/images/device-workbench-hero.png)
+![Schematic simulator workbench with an inspector, a tablet preview and safe-area guides](docs/images/device-workbench-hero.jpg)
 
 # Apple prototyping
 

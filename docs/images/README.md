@@ -1,11 +1,13 @@
 # README hero
 
-`device-workbench-hero.png` is a conceptual illustration generated with the
-built-in image generation tool on 2026-10-15. It is not a native screenshot or
+`device-workbench-hero.jpg` is the user-provided crop of a conceptual illustration
+generated with the built-in image generation tool on 2026-10-15. It keeps only
+the central simulator workbench, without the phone and tabletop devices at the
+sides. The supplied crop is used unchanged. It is not a native screenshot or
 a source of device measurements. The application sample and geometry records
 remain the sources for implementation.
 
-## Generation prompt
+## Original generation prompt (before the user-provided crop)
 
 Use case: ui-mockup
 Asset type: wide GitHub README hero banner, roughly 2.4:1 landscape.
