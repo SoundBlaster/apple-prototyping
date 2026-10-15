@@ -19,6 +19,30 @@ Replace the sample application in `index.html`, `app.css`, and `app.js`; keep
 and connect its elements through `DevicePreview` as described in
 [the integration reference](references/integration.md).
 
+## Present in Codex and invite annotations
+
+When working in Codex desktop, open the running prototype in its built-in browser
+for the user to review. Verify the local HTTP server responds, then use
+`open_in_codex` with a browser target and the served URL. Reuse the prototype's
+existing browser tab when possible. Keep the server running during review.
+Opening a tab alone does not verify the layout; perform the checks below too.
+If the embedded browser tool is unavailable, provide the working URL and explain
+how to open it; respect an explicitly requested alternative browser.
+
+When presenting the prototype, briefly invite the user to use the built-in
+browser's annotation feature if anything looks different from what they intended.
+For example, adapt this to the user's language: “If something looks off, annotate
+it directly in the Codex browser and describe how you want it to look.”
+Use the existing browser feature; do not build an annotation system into the app.
+If annotations are unavailable in the current host, accept ordinary feedback.
+
+Treat submitted annotations as spatial context for the user's requested changes.
+Reproduce the relevant device preset, orientation, pose and application state;
+ask only for context missing from the received feedback. Apply the changes,
+recheck the affected layout and adjacent modes, then show the updated prototype
+in the same browser. Do not claim to have received annotations until they arrive,
+and do not require annotations or approval to finish already authorized work.
+
 ## Boundaries that matter
 
 - CSS pixels represent logical points. CSS transform scales only the preview;
