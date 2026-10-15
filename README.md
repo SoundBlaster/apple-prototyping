@@ -100,6 +100,19 @@ then exports JSON with a companion screenshot. Import that JSON in the playgroun
 to review your prototype using the captured geometry. Separate observations keep
 portrait, landscape and system-panel configurations distinct.
 
+Collect exported measurements directly from a paired device into a portable
+catalog (Node.js 20+, macOS and Xcode tools):
+
+```sh
+npm run collect -- --device YOUR_DEVICE_UDID \
+  --output skills/apple-device-prototyping/assets/starter/captures
+```
+
+Repeat the command after exporting more modes. Equal measurements share a profile,
+new observations retain their screenshots, and repeated downloads add no duplicates.
+Use `--input /path/to/exports` instead of `--device` for offline folders. See the
+[collection workflow and storage contract](skills/apple-device-prototyping/references/collection.md).
+
 The playground keeps logical dimensions separate from preview scaling and labels
 the source of its geometry. **Duo presets replay exact recorded bounds, safe-area
 insets and regions from an iOS 27.1 Simulator capture.** Those measurements belong

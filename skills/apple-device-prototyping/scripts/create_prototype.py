@@ -12,7 +12,8 @@ def main():
     if destination.exists():
         parser.error("Destination already exists; choose a new directory. Existing work is never overwritten.")
     starter=Path(__file__).resolve().parents[1]/"assets/starter"
-    shutil.copytree(starter,destination)
+    # Local device exports belong to the current prototype, not every new client project.
+    shutil.copytree(starter,destination,ignore=shutil.ignore_patterns("captures"))
     print(f"Created {destination}")
     print(f"Serve with: python3 -m http.server 8000 --directory '{destination}'")
 
