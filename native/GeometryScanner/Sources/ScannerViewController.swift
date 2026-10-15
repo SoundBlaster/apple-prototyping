@@ -234,10 +234,11 @@ final class ScannerViewController: UIViewController {
             let json = documents.appendingPathComponent(name + ".json")
             let png = documents.appendingPathComponent(name + ".png")
             try capture.encoded().write(to: json, options: .atomic)
+            notice.text = "Saved \(name).json"
+            view.layoutIfNeeded()
             let renderer = UIGraphicsImageRenderer(bounds: view.bounds)
             let image = renderer.image { _ in view.drawHierarchy(in: view.bounds, afterScreenUpdates: true) }
             if let data = image.pngData() { try data.write(to: png, options: .atomic) }
-            notice.text = "Saved \(name).json"
             let items: [Any] = FileManager.default.fileExists(atPath: png.path) ? [json, png] : [json]
             let share = UIActivityViewController(activityItems: items, applicationActivities: nil)
             share.popoverPresentationController?.sourceView = captureButton
