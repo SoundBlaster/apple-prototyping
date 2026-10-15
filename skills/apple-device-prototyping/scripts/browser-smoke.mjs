@@ -30,6 +30,18 @@ export async function runBrowserSmoke(page, baseURL='http://127.0.0.1:8766/') {
       document.body.append(host);
       const screen=host.querySelector('.screen'),button=screen.querySelector('button');
       const kit=new DevicePreview({screen,frame:host.querySelector('.frame'),space:host.querySelector('.space'),stage:host});
+      for(const id of ['duo','duoPortrait','duoOuter','duoOuterLeft','duoOuterPortrait']){
+        for(const cameraActive of [false,true]){
+          kit.update(preset(id),{cameraActive,guides:false});
+          const regions=[...screen.querySelectorAll('.apple-occlusion')];
+          if(!regions.length)throw Error('Missing measured occlusions: '+id);
+          for(const region of regions){
+            const style=getComputedStyle(region),active=region.dataset.active==='true';
+            if((style.display!=='none')!==active)throw Error('Occlusion visibility mismatch: '+id);
+            if(active&&style.backgroundColor!=='rgb(21, 37, 42)')throw Error('Active occlusion is not opaque: '+id);
+          }
+        }
+      }
       kit.update(preset('tabletop'));
       const rect=screen.getBoundingClientRect(),z=Number(screen.dataset.previewScale);
       const p=kit.toLocal(rect.left+100*z,rect.top+120*z);
@@ -42,6 +54,6 @@ export async function runBrowserSmoke(page, baseURL='http://127.0.0.1:8766/') {
     });
     await page.selectOption('#preset','tabletop');
     if(errors.length)throw Error(errors.join('\n'));
-    return {presets:results,customFixture:true,pointerMapping:true,multipleInstances:true,destroyPreservesApp:true,errors};
+    return {presets:results,activeOcclusions:true,customFixture:true,pointerMapping:true,multipleInstances:true,destroyPreservesApp:true,errors};
   } finally {page.off('pageerror',listener);}
 }

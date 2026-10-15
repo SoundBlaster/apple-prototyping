@@ -8,5 +8,6 @@
 .apple-screen[data-pose=tabletop] .apple-division{background:linear-gradient(transparent,#18293870,transparent)}
 .apple-occlusion{position:absolute;display:none;border-radius:6px}
 .apple-screen[data-guides=true] .apple-occlusion{display:block;outline:1px dashed #f19435;background:#f1943515}
-.apple-screen .apple-occlusion[data-active=true][data-camera=true]{display:block;background:#15252a;border-radius:50%}
+.apple-screen .apple-occlusion[data-active=true]{display:block;background:#15252a}
+.apple-screen .apple-occlusion[data-active=true][data-camera=true]{border-radius:50%}
 .apple-home-indicator{position:absolute;bottom:8px;left:calc(50% - 60px);width:120px;height:5px;border-radius:4px;background:#16302d99}
