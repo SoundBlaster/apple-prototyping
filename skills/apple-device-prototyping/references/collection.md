@@ -58,3 +58,20 @@ removing a stale lock. The collector does not prune old observations or files.
 Keep the complete directory together when serving or sharing the prototype.
 Review exported screenshots before publishing them. The starter's local captures
 directory is git-ignored; intentionally shared evidence belongs in a reviewed PR.
+
+## Use in the playground
+
+The starter fetches `./captures/catalog.json` on startup with caching disabled.
+After collecting, click **Refresh catalog**; filter by device/OS, orientation and
+mode, then **Use measurement**. **Measurement evidence** links to the representative
+JSON and PNG and shows its capture time, target, traits and observation count.
+The latest timestamp within each profile supplies that representative screenshot;
+all observations remain in the catalog. A missing PNG leaves the JSON available.
+
+The selection survives reload. Manual JSON imports also persist in localStorage
+(up to 100 captures, scoped by URL path), with a session-only fallback when
+storage is unavailable. Browser storage is not the portable catalog: copy the
+whole `captures` directory to share measured profiles with another browser or
+host. The browser never writes back to it. Resize/rotation invalidates measured
+status; selecting the original profile restores it. Failed refreshes retain the
+currently loaded catalog and application state.

@@ -113,6 +113,13 @@ new observations retain their screenshots, and repeated downloads add no duplica
 Use `--input /path/to/exports` instead of `--device` for offline folders. See the
 [collection workflow and storage contract](skills/apple-device-prototyping/references/collection.md).
 
+In the playground, click **Refresh catalog**, filter by device/OS, orientation
+and mode, then **Use measurement**. Expand **Measurement evidence** to compare
+the native screenshot with your prototype and inspect the source JSON. Catalog
+profiles and the last selection survive reload; manual JSON imports are saved
+in browser storage when available. Share the prototype with its `captures`
+directory to give a client the same measured profiles.
+
 The playground keeps logical dimensions separate from preview scaling and labels
 the source of its geometry. **Duo presets replay exact recorded bounds, safe-area
 insets and regions from an iOS 27.1 Simulator capture.** Those measurements belong

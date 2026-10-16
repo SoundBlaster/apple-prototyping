@@ -8,7 +8,7 @@ export async function runBrowserSmoke(page, baseURL='http://127.0.0.1:8766/') {
     await page.goto(baseURL);
     await page.setViewportSize({width:1440,height:1100});
     await page.locator('#count').click();
-    const ids=await page.locator('#preset option').evaluateAll(xs=>xs.map(x=>x.value));
+    const ids=await page.evaluate(async()=>Object.keys((await import('./device-kit/device-preview.js')).presets));
     const results=[];
     for(const id of ids){
       await page.selectOption('#preset',id);
