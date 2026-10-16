@@ -1,8 +1,10 @@
 {
   "name": "apple-prototyping",
   "private": true,
+  "engines": {"node": ">=20"},
   "type": "module",
   "scripts": {
+    "collect": "node skills/apple-device-prototyping/scripts/collect.mjs",
     "test": "node --test skills/apple-device-prototyping/scripts/*.test.mjs",
     "serve": "python3 -m http.server 8766 --directory skills/apple-device-prototyping/assets/starter"
   }

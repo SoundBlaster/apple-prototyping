@@ -23,6 +23,8 @@ For geometry exported from the native scanner, read [the capture contract](refer
 Use the starter's **Import scanner JSON** control or `parseCapture`/`captureState`
 to replay it. Keep the owning-view/chrome context and declared source visible.
 Capture each orientation separately; resizing a capture does not measure a new device.
+To retrieve exports from a paired device or organize an export folder, use
+`scripts/collect.mjs` as described in [collection](references/collection.md).
 
 ## Present in Codex and invite annotations
 
