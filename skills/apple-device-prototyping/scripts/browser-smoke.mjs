@@ -7,6 +7,7 @@ export async function runBrowserSmoke(page, baseURL='http://127.0.0.1:8766/') {
   try {
     await page.goto(baseURL);
     await page.setViewportSize({width:1440,height:1100});
+    if(await page.locator('#rotate, #pose').count())throw Error('Redundant Rotate/Pose controls are present');
     await page.locator('#count').click();
     const ids=await page.evaluate(async()=>Object.keys((await import('./device-kit/device-preview.js')).presets));
     const results=[];

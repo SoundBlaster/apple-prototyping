@@ -19,7 +19,7 @@ right in the browser.
 | The question | What the playground lets the agent do |
 | --- | --- |
 | Does this screen work beyond one screenshot? | Switch between 13 presets covering phone, iPad, Duo, fold poses and a narrow window; try custom dimensions too. |
-| What happens when the device rotates? | Rotate the viewport and inspect how content and controls reflow while application state stays in place. |
+| What happens when the device rotates? | Select portrait and landscape presets and inspect how content and controls reflow while application state stays in place. |
 | Are controls clear of the safe area and camera? | Overlay recorded safe-area and occlusion guides for measured presets, and simulate active occlusions. |
 | Where should controls go in tabletop mode? | Explore content on one panel and controls on the other while preserving the full display proportions. |
 | Is the design ready to discuss with a client? | Present the working screen in a browser, change device modes live, and compare layout choices together. |

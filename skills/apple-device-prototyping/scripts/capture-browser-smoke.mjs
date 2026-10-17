@@ -33,8 +33,9 @@ export async function runCaptureBrowserSmoke(page,capture,baseURL='http://127.0.
   }
   if(layout.title.bottom>layout.caption.top||layout.caption.bottom>layout.button.top)
     throw Error('Imported sample content overlaps');
-  await page.locator('#rotate').click();
-  if(await page.locator('#screen').getAttribute('data-native')!=='false')throw Error('Rotation kept stale measured geometry');
+  await page.locator('#width').fill(String(Number(await page.locator('#width').inputValue())+1));
+  await page.locator('#width').dispatchEvent('change');
+  if(await page.locator('#screen').getAttribute('data-native')!=='false')throw Error('Resize kept stale measured geometry');
   await page.selectOption('#preset',id);
   if(await page.locator('#screen').getAttribute('data-native')!=='true')throw Error('Cannot restore capture');
   await page.locator('#captureFile').setInputFiles({
@@ -42,5 +43,5 @@ export async function runCaptureBrowserSmoke(page,capture,baseURL='http://127.0.
   });
   await page.waitForFunction(()=>document.querySelector('#importStatus').textContent.includes('unsupported schemaVersion'));
   if(await page.locator('#preset').inputValue()!==id)throw Error('Invalid import changed active profile');
-  return {measured,sampleContentFits:true,rotationInvalidates:true,selectionRestores:true,invalidImportPreservesState:true};
+  return {measured,sampleContentFits:true,resizeInvalidates:true,selectionRestores:true,invalidImportPreservesState:true};
 }
