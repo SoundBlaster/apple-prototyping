@@ -1,4 +1,4 @@
-import {DevicePreview,presets,preset,rotate,parseCapture,captureState} from './device-kit/device-preview.js';
+import {DevicePreview,presets,preset,parseCapture,captureState} from './device-kit/device-preview.js';
 import {parseCatalog} from './device-kit/catalog.js';
 const $=id=>document.getElementById(id);
 let state=preset('duo');let selected='duo';let notes=0;
@@ -30,7 +30,6 @@ function render(){
   state=g.state;
   $('preset').value=selected;
   for(const axis of ['width','height']) $(''+axis).value=state[axis];
-  $('pose').value=state.pose;$('pose').disabled=state.display==='outer';
   $('evidence').textContent=`${g.evidence} · ${g.note}`;
   $('mode').textContent=`${state.display} · ${state.pose}`;
   $('app').dataset.layout=g.chromeHint;$('app').dataset.pose=state.pose;
@@ -49,8 +48,6 @@ function render(){
 function selectProfile(id){selected=id;state=importedProfiles.has(id)?structuredClone(importedProfiles.get(id)):preset(id);render();saveSelection();}
 $('preset').addEventListener('change',e=>selectProfile(e.target.value));
 for(const axis of ['width','height']) $(axis).addEventListener('change',e=>{if(!e.target.checkValidity()||!e.target.value){e.target.value=state[axis];return;}state[axis]=Number(e.target.value);selected='';render();saveSelection();});
-$('rotate').addEventListener('click',()=>{state=rotate(state);selected='';render();saveSelection();});
-$('pose').addEventListener('change',e=>{state.pose=e.target.value;if(state.pose!=='flat'){state.family='duo';if(state.display==='generic')state.display='hypothetical';}if(state.display==='inner'&&((state.pose==='tabletop'&&state.width>state.height)||(state.pose==='vertical'&&state.width<state.height)))[state.width,state.height]=[state.height,state.width];selected='';render();saveSelection();});
 for(const id of ['guides','camera']) $(id).addEventListener('change',render);
 $('count').addEventListener('click',()=>{$('countValue').textContent=++notes;});
 $('captureFile').addEventListener('change',async e=>{
@@ -61,7 +58,7 @@ $('captureFile').addEventListener('change',async e=>{
     if([...importedProfiles.keys()].filter(id=>id.startsWith('capture-')).length>=100&&!importedProfiles.has('capture-'+capture.id))throw Error('Import limit reached; use a collected catalog for more profiles.');
     const id=addImported(capture);$('guides').checked=true;selectProfile(id);
     const saved=rememberImports();
-    $('importStatus').textContent='Imported. Rotate/resize becomes a fixture; select this profile again to restore its measured geometry.'+(saved?' Saved in this browser.':' Browser storage unavailable; this import lasts for this session.');
+    $('importStatus').textContent='Imported. Resizing becomes a fixture; select this profile again to restore its measured geometry.'+(saved?' Saved in this browser.':' Browser storage unavailable; this import lasts for this session.');
   } catch(error) {$('importStatus').textContent=error.message;}
   finally {e.target.value='';}
 });

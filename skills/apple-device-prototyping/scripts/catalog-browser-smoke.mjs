@@ -18,8 +18,9 @@ export async function runCatalogBrowserSmoke(page,baseURL='http://127.0.0.1:8766
   if(await page.locator('#countValue').textContent()!=='1')throw Error('Selection lost application state');
   await page.reload();await page.waitForFunction(id=>document.querySelector('#preset').value===id,selected);
   if(await page.locator('#screen').getAttribute('data-native')!=='true')throw Error('Measured selection not restored');
-  await page.locator('#rotate').click();
-  if(await page.locator('#screen').getAttribute('data-native')!=='false'||await page.locator('#captureEvidence').isVisible())throw Error('Rotation kept measurement/evidence');
+  await page.locator('#width').fill(String(Number(await page.locator('#width').inputValue())+1));
+  await page.locator('#width').dispatchEvent('change');
+  if(await page.locator('#screen').getAttribute('data-native')!=='false'||await page.locator('#captureEvidence').isVisible())throw Error('Resize kept measurement/evidence');
   await page.selectOption('#preset',selected);
   const invalid=route=>route.fulfill({status:200,contentType:'application/json',body:'{"schemaVersion":999}'});
   await page.route('**/captures/catalog.json',invalid);await page.locator('#refreshCatalog').click();
